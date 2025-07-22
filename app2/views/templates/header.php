@@ -57,7 +57,6 @@
         // Event listener untuk link di sidebar
         sidebarLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // e.preventDefault()
                 // Hapus kelas active dari semua link
                 sidebarLinks.forEach(l => l.parentElement.classList.remove('active'));
 
@@ -66,8 +65,8 @@
 
                 // Ubah judul halaman
                 const linkText = this.querySelector('.link-text')?.textContent.trim() || this.textContent.trim();
-                // pageTitle.textContent = linkText;
-                // contentTitle.textContent = `Konten ${linkText}`;
+                pageTitle.textContent = linkText;
+                contentTitle.textContent = `Konten ${linkText}`;
 
                 // Tutup sidebar jika dalam mode mobile setelah klik
                 if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
@@ -326,4 +325,4 @@
 
         <!-- Konten utama Anda dimulai di sini -->
         <div class="p-4 bg-light bg-gradient rounded-3 shadow-sm">
-            <h2 id="content-title"></h2>
+            <h2 id="content-title">Content</h2>

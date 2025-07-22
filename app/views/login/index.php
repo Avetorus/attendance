@@ -1,7 +1,7 @@
 <?php
     session_start();
         if (isset($_SESSION['Admin-name'])) {
-        header("location: index.php");
+        header("location: .");
         exit();
     }
 ?>
@@ -46,9 +46,9 @@
                 </div>
 
                 <!-- Placeholder for messages -->
-                <div id="login-message" class="hidden mt-4 p-4 text-sm rounded-lg"></div>
+                <div id="login-message" class="<?php if(!isset($_GET["error"])) echo "hidden" ?>bg-red-400 mt-4 p-4 text-sm rounded-lg"><?php if(isset($_GET["error"])) echo $_GET["error"] ?></div>
 
-                <form id="login-form" action="" method="post" class="mt-6 space-y-6">
+                <form id="login-form" action="#" method="post" class="mt-6 space-y-6">
                     <div>
                         <label for="email" class="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
                         <input type="email" name="email" id="email" placeholder="you@example.com" required
@@ -71,5 +71,76 @@
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get elements
+            const loginContainer = document.getElementById('login-container');
+            const resetContainer = document.getElementById('reset-container');
+            const showResetLink = document.getElementById('show-reset-form');
+            const showLoginLink = document.getElementById('show-login-form');
+            
+            const loginForm = document.getElementById('login-form');
+            const resetForm = document.getElementById('reset-form');
+
+            const loginMessage = document.getElementById('login-message');
+            const resetMessage = document.getElementById('reset-message');
+
+            // --- Event Listeners to toggle forms ---
+            showResetLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginContainer.classList.add('hidden');
+                resetContainer.classList.remove('hidden');
+            });
+
+            showLoginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                resetContainer.classList.add('hidden');
+                loginContainer.classList.remove('hidden');
+            });
+
+            // --- Form Submission Handlers (Client-Side Demo) ---
+
+            // Function to display messages
+            function showMessage(element, message, isError = false) {
+                element.textContent = message;
+                element.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-200', 'bg-red-100', 'text-red-800', 'dark:bg-red-900', 'dark:text-red-200');
+                if (isError) {
+                    element.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-900', 'dark:text-red-200');
+                } else {
+                    element.classList.add('bg-green-100', 'text-green-800', 'dark:bg-green-900', 'dark:text-green-200');
+                }
+            }
+            
+            // Handle Login Form Submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent actual form submission
+                const email = this.email.value;
+
+                // Simulate different server responses based on email
+                if (email === 'error@example.com') {
+                    showMessage(loginMessage, 'Wrong password! Please try again.', true);
+                } else if (email === 'nouser@example.com') {
+                    showMessage(loginMessage, 'This E-mail does not exist!', true);
+                } else if (email === 'activated@example.com') {
+                    showMessage(loginMessage, 'Account activated. Please login.', false);
+                }
+                else {
+                    // Simulate a successful login
+                    showMessage(loginMessage, 'Login successful! Redirecting...', false);
+                    // Here you would typically redirect the user
+                    // window.location.href = '/dashboard.php';
+                }
+            });
+
+            // Handle Reset Form Submission
+            resetForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent actual form submission
+                
+                // Simulate success
+                showMessage(resetMessage, 'Success! Check your E-mail for the reset link.', false);
+            });
+        });
+    </script>
 </body>
 </html>

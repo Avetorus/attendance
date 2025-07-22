@@ -12,8 +12,4 @@ class UserModel {
         $this->db->query("SELECT * FROM $this->table");
         return $this->db->resultSet();
     }
-
-    public function __call($method, $args){
-        return call_user_func_array([$this->db, $method], $args);
-    }
 }

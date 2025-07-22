@@ -18,7 +18,6 @@ class Database {
 
     public function query($query) {
         $this->stmt = $this->conn->prepare($query);
-        return $this->stmt;
         if (!$this->stmt) {
             die("Prepare failed: " . $this->conn->error);
         }

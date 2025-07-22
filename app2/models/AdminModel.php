@@ -18,8 +18,4 @@ class AdminModel {
         $this->db->bind("s", $email);
         return $this->db->single();
     }
-
-    public function __call($method, $args){
-        return call_user_func_array([$this->db, $method], $args);
-    }
 }

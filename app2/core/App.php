@@ -5,10 +5,18 @@ class App {
     protected $method = "index";
     protected $params = [];
     protected $url;
-    protected $action;
+    protected $action = 'GET';
+    protected Route $route;
     public function __construct() {
+        $this->route = new Route();
+
+        $this->route->get('/home', [Home::class, 'index']);
+        $this->route->get('/login', [Login::class, 'index']);
+        $this->route->fallback([Home::class, 'index']);
+
         $this->url = $this->parseUrl();
-        $this->routing();
+        // $this->routing();
+        $this->route->resolve($_SERVER["REQUEST_URI"], $_SERVER["REQUEST_METHOD"]);
     }
 
     public function parseUrl(){
@@ -23,8 +31,6 @@ class App {
     }
 
     public function routing() {
-        $this->action = $_SERVER["REQUEST_METHOD"];
-
         //check controller
         if(file_exists("../app/controllers/".$this->url[0].".php")) {
             $this->controller = $this->url[0];
@@ -46,9 +52,9 @@ class App {
             $this->params = array_values($this->url);
         }
 
-        if($this->action === 'POST') $this->method = 'acc';
-        
         call_user_func_array([$this->controller, $this->method], $this->params);
 
     }
+
+
 }
