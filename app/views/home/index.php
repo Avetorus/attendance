@@ -1,5 +1,12 @@
-<?php foreach ($data["UserModel"] as $user): ?>
-    <p><?= $user["name"] ?></p>
-    <p><?= $user["position"] ?></p>
-    <hr>
+<?php foreach($data["allAdmin"] as $admin): ?>
+    <p><?= $admin["admin_name"]; ?></p>
 <?php endforeach; ?>
+
+<?php 
+echo"<pre>";
+echo print_r($data["admin"]);
+echo"</pre>";
+
+
+
+

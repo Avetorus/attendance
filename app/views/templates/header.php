@@ -1,3 +1,10 @@
+<?php 
+    // session_start();
+    //     if (!isset($_SESSION['Admin-name'])) {
+    //     header("location: ".BASEURL."/login");
+    //     exit();
+    // }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,9 +57,6 @@
         // Event listener untuk link di sidebar
         sidebarLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Jangan ikuti link href
-                e.preventDefault();
-
                 // Hapus kelas active dari semua link
                 sidebarLinks.forEach(l => l.parentElement.classList.remove('active'));
 
@@ -256,21 +260,21 @@
 
         <ul class="list-unstyled components">
             <li class="active">
-                <a href="#dashboard" class="sidebar-link">
+                <a href="<?php echo BASEURL; ?>" class="sidebar-link">
                     <i class="fas fa-tachometer-alt"></i>
                     <span class="link-text">Home</span>
                 </a>
                 <!-- <span class="tlt">Home</span> -->
             </li>
             <li>
-                <a href="#karyawan" class="sidebar-link">
+                <a href="<?php echo BASEURL; ?>/user" class="sidebar-link">
                     <i class="fas fa-users"></i>
                     <span class="link-text">User</span>
                 </a>
                 <!-- <span class="tlt">User</span> -->
             </li>
             <li>
-                <a href="#absensi" class="sidebar-link">
+                <a href="<?php echo BASEURL; ?>/attendance" class="sidebar-link">
                     <i class="fas fa-clipboard-list"></i>
                     <span class="link-text">Attendance</span>
                 </a>
@@ -278,14 +282,14 @@
             </li>
             <li>
                 <!-- Menu Laporan (tanpa submenu) -->
-                <a href="#laporan" class="sidebar-link">
+                <a href="<?php echo BASEURL; ?>/report" class="sidebar-link">
                     <i class="fas fa-file-alt"></i>
                     <span class="link-text">Reports</span>
                 </a>
                 <!-- <span class="tlt">Reports</span> -->
             </li>
             <li>
-                <a href="#pengaturan" class="sidebar-link">
+                <a href="<?php echo BASEURL; ?>/setting" class="sidebar-link">
                     <i class="fas fa-cog"></i>
                     <span class="link-text">Settings</span>
                 </a>
@@ -311,7 +315,7 @@
                 </button>
                 
                 <!-- Brand/Judul Halaman (Dinamis) -->
-                <a class="navbar-brand fw-bold" href="#" id="pageTitle">Dashboard</a>
+                <a class="navbar-brand fw-bold" href="#" id="pageTitle"><?= $data['title']; ?></a>
                 
                 <div class="ms-auto">
                     <span class="navbar-text">Selamat Datang, Admin!</span>
@@ -321,4 +325,4 @@
 
         <!-- Konten utama Anda dimulai di sini -->
         <div class="p-4 bg-light bg-gradient rounded-3 shadow-sm">
-            <h2 id="content-title"><?= $data["title"]; ?></h2>
+            <h2 id="content-title">Content</h2>
